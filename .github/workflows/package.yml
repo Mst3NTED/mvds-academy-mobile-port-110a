@@ -1,0 +1,30 @@
+name: Build Release APK
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install --upgrade buildozer cython pillow
+        sudo apt-get update
+        sudo apt-get install -y scons libssl-dev libgstreamer1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav libgstreamer-plugins-base1.0-dev libasound2-dev libgwenhywfar-dev libitpp-dev libvlc-dev libvlccore-dev vlc-data autoconf automake libtool pkg-config zlib1g-dev python3-dev libffi-dev libgmp-dev openjdk-17-jdk
+
+    - name: Build Release APK with Buildozer
+      run: |
+        yes | buildozer android release
+
+    - name: Upload Release APK Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: MVDS_ACADEMY_RELEASE_APK
+        path: bin/*.apk
