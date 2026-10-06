@@ -16,8 +16,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade buildozer cython pillow
-          sudo apt-get update
-          sudo apt-get install -y scons libssl-dev libgstreamer1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav libgstreamer-plugins-base1.0-dev libasound2-dev libgwenhywfar-dev libitpp-dev libvlc-dev libvlccore-dev vlc-data autoconf automake libtool pkg-config zlib1g-dev python3-dev libffi-dev libgmp-dev openjdk-17-jdk
+          sudo apt-get update --fix-missing || true
+          sudo apt-get install -y --fix-missing scons libssl-dev libgstreamer1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav libgstreamer-plugins-base1.0-dev libasound2-dev libgwenhywfar-dev libitpp-dev libvlc-dev libvlccore-dev vlc-data autoconf automake libtool pkg-config zlib1g-dev python3-dev libffi-dev libgmp-dev openjdk-17-jdk
 
       - name: Build Release APK with Buildozer
         run: |
